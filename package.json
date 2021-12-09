@@ -1,0 +1,19 @@
+{
+  "name": "xero_amandeepsingh",
+  "version": "1.0.0",
+  "description": "Products API using MONGO DB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emergentIOT/XERO_AmandeepSingh.git"
+  },
+  "author": "Amandeep Singh (aman24january@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emergentIOT/XERO_AmandeepSingh/issues"
+  },
+  "homepage": "https://github.com/emergentIOT/XERO_AmandeepSingh#readme"
+}
