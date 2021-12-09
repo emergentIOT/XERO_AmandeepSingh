@@ -2,6 +2,7 @@
 
 const express = require('express');
 //Add controller 
+const productController = require('../controllers/product.controller');
 //Add model
 const asyncHandler = require('express-async-handler');
 
@@ -57,8 +58,13 @@ async function getProduct(req, res) {
  * - creates a new product.
  */
 async function saveProduct(req, res) {
+    const product = req.body;
+    console.log(`Resigeter user ${product}`);
+    const savedProduct = await productController.insert(product);
+
     res.json({
-        success: true
+        success: true,
+        data: savedProduct
     })
 }
 
