@@ -3,7 +3,7 @@ const logger = require('morgan');
 const config = require('./config/config');
 
 //API Calls 
-const routes = require('./routes');
+const routes = require('./routes/index');
 
 
 const app = express();
