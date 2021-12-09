@@ -4,6 +4,7 @@
   "description": "Products API using MONGO DB",
   "main": "index.js",
   "scripts": {
+    "start-server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,17 @@
   "bugs": {
     "url": "https://github.com/emergentIOT/XERO_AmandeepSingh/issues"
   },
-  "homepage": "https://github.com/emergentIOT/XERO_AmandeepSingh#readme"
+  "homepage": "https://github.com/emergentIOT/XERO_AmandeepSingh#readme",
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^1.19.3"
+  },
+  "dependencies": {
+    "async": "^3.2.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "logger": "^0.0.1",
+    "mongoose": "^5.7.7"
+  }
 }
