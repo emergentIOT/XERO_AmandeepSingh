@@ -5,16 +5,16 @@ const express = require('express');
 const productController = require('../controllers/product.controller');
 //Add model
 const asyncHandler = require('express-async-handler');
-
+const Product = require('../models/Product');
 const router = express.Router();
 
 //APIs
 router.get('/products', asyncHandler(getProducts));
-router.get('/products/:name', asyncHandler(getProductWithName));
+router.get('/productsName', asyncHandler(getProductWithName));
 router.get('/products/:productId', asyncHandler(getProduct));
 router.post('/products', asyncHandler(saveProduct));
-router.put('/product/:productId', asyncHandler(updateProduct));
-router.delete('/product/:productId', asyncHandler(deleteProduct));
+router.put('/products/:productId', asyncHandler(updateProduct));
+router.delete('/products/:productId', asyncHandler(deleteProduct));
 
 
 
@@ -25,20 +25,35 @@ router.delete('/product/:productId', asyncHandler(deleteProduct));
  */
 async function getProducts(req, res, next) {
     console.log('requested');
-    res.json({
-        success: true
+    Product.find({}, (err, result) => {
+        res.json({
+            success: true,
+            data: result
+        })
     })
+    
 }
 
 /**
  * GET
- * /products/:name
+ * /productsName?name=""
  * - finds all products matching the specified name.
  */
 async function getProductWithName(req, res) {
-    res.json({
-        success: true
-    })
+    let name = req.query.name;  
+    var LATEST_ID = -1;
+    let query = {};
+    query.name = name;
+          
+    Product.find(query)      
+        .sort({ _id : LATEST_ID })
+        .exec(function(err, result) {
+            res.json({
+                success: true,
+                data: result
+            })
+        });
+    
 }
 
 /**
@@ -47,9 +62,14 @@ async function getProductWithName(req, res) {
  * - gets the project that matches the specified ID.
  */
 async function getProduct(req, res) {
-    res.json({
-        success: true
+    Product.findById(req.params.productId, (err, result) => {
+        console.log("Result", req.params.productId);
+        res.json({
+            success: true,
+            data: result
+        })
     })
+    
 }
 
 /**
@@ -74,9 +94,15 @@ async function saveProduct(req, res) {
  * - updates a product.
  */
 async function updateProduct(req, res) {
-    res.json({
-        success: true
+    const product = req.body;
+    console.log(product);
+    productController.updateProduct(req.params.productId,product, (err, result) => {
+        res.json({
+            success: true,
+            updatedProduct: result
+        })
     })
+    
 }
 
 /**
@@ -85,9 +111,15 @@ async function updateProduct(req, res) {
  * - deletes a product and its options.
  */
 async function deleteProduct(req,res) {
-    res.json({
-        success: true
+    console.log("id", req.params.productId);
+    productController.deleteProduct(req.params.productId, (err, result) => {
+       
+        res.json({
+            success: true,
+            data: result
+        })
     })
+    
 }
 
 module.exports = router;
