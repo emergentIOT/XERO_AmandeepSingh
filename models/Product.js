@@ -16,7 +16,11 @@ const ProductSchema = new mongoose.Schema({
     deliveryPrice: {
         type: Number, 
       //  required: true
-    }
+    },
+    options: [{
+        name: String,
+        description: String
+    }]
 });
 
 module.exports = mongoose.model('Products', ProductSchema);
