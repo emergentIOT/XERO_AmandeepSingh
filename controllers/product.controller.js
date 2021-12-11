@@ -23,12 +23,19 @@ function updateProduct(id,product, callback) {
 	Product.findOneAndUpdate(query, update, callback);
 }
 
-
-
-
- function deleteProduct(id, callback) {
+function deleteProduct(id, callback) {
     var query = {_id: id};
     Product.remove(query, callback);
+}
+
+function pushOptions(id, payload, callback) {
+  var q = { _id: id };
+  var option = {
+    name: payload.name,
+    description: payload.description
+  }
+
+  Product.updateOne( q, { $push : { options: [option]}}, callback);
 }
 
 
@@ -60,6 +67,7 @@ module.exports = {
 
   insert,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  pushOptions
     
 }

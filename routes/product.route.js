@@ -1,12 +1,13 @@
 //Product API
 
 const express = require('express');
-//Add controller 
-const productController = require('../controllers/product.controller');
-//Add model
-const asyncHandler = require('express-async-handler');
-const Product = require('../models/Product');
 const router = express.Router();
+const asyncHandler = require('express-async-handler');
+//Product Model
+const Product = require('../models/Product');
+//Product Controller
+const productController = require('../controllers/product.controller');
+
 
 //APIs
 router.get('/products', asyncHandler(getProducts));
@@ -134,7 +135,7 @@ async function deleteProduct(req,res) {
  * -finds all options for a specified product.
  */
 async function getProductOptions(req, res) {
-    Product.find({}, (err, result) => {
+    Product.findById(req.params.productId, (err, result) => {
         res.json({
             success: true,
             items: result.options
@@ -161,12 +162,23 @@ async function getSpecifiedOption(req, res) {
  * /products/:productId/options
  * -adds a new product option to the specified product.
  */
-async function addProductOption() {
-
-    res.json({
-        success: true,
-        items: true
+async function addProductOption(req, res) {
+    let payload = {
+        name: req.body.name,
+        description: req.body.description
+    }
+    productController.pushOptions(req.params.productId, payload, (err, result) => {
+        if(err) {
+            console.log("Error: ", err);
+            return;
+        }
+        console.log(`Success : ${result}`);
+        res.json({
+            success: true,
+            items: result
+        })
     })
+    
 }
 
 /**
