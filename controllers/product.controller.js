@@ -20,7 +20,8 @@ function updateProduct(id,product, callback) {
 		deliveryPrice: product.deliveryPrice
   
   }
-	Product.findOneAndUpdate(query, update, callback);
+  console.log(update);
+	Product.updateOne(query, { $set: {update} }, callback);
 }
 
 function deleteProduct(id, callback) {
