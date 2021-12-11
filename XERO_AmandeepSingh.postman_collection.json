@@ -17,7 +17,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/product/products/",
+					"raw": "http://localhost:3000/api/v1/products/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -25,7 +25,7 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"product",
+						"v1",
 						"products",
 						""
 					]
@@ -45,7 +45,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/product/productsName?name=aman",
+					"raw": "http://localhost:3000/api/v1/productsName?name=aman",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -53,7 +53,7 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"product",
+						"v1",
 						"productsName"
 					],
 					"query": [
@@ -67,7 +67,7 @@
 			"response": []
 		},
 		{
-			"name": "Gets the product that matches the specified ID",
+			"name": "Gets the project that matches the specified ID",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -78,7 +78,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/product/products/61b2b44b7119872d44b95622",
+					"raw": "http://localhost:3000/api/v1/products/61b2ac9601290129410aca0f",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -86,9 +86,9 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"product",
+						"v1",
 						"products",
-						"61b2b44b7119872d44b95622"
+						"61b2ac9601290129410aca0f"
 					]
 				}
 			},
@@ -97,27 +97,236 @@
 		{
 			"name": "Creates a new product",
 			"request": {
-				"method": "GET",
-				"header": [],
-				"url": null
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Product One\",\n    \"description\": \"Product description explains here\",\n    \"price\": 13.45,\n    \"deliveryPrice\": 12.34,\n    \"options\": [{\n        \"name\": \"Option one\",\n        \"description\": \"option one description\"\n    },\n    {\"name\": \"Option two\",\n     \"description\": \"option one description\"\n    }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Updates a product.",
 			"request": {
-				"method": "GET",
-				"header": [],
-				"url": null
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Product aman test \",\n        \"description\": \"Product description explains here\",\n        \"price\": 13.45,\n        \"deliveryPrice\": 12.34\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products/61b2ac9601290129410aca0f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"61b2ac9601290129410aca0f"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Deletes a product and its options.",
 			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products/61b2b8782fb0af2f216f1f2e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"61b2b8782fb0af2f216f1f2e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finds all options for a specified product.",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products/61b2ac9601290129410aca0f/options",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"61b2ac9601290129410aca0f",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finds the specified product option for the specified product.",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products/61b2ac9601290129410aca0f/options/61b4b15538526964d18637ea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"61b2ac9601290129410aca0f",
+						"options",
+						"61b4b15538526964d18637ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adds a new product option to the specified product.",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Adding Option 7\",\n    \"description\" : \"Will describe option here\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products/61b2ac9601290129410aca0f/options",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"61b2ac9601290129410aca0f",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updates the specified product option.",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"111australia\",\n    \"description\" : \"I have updated again\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products/61b2ac9601290129410aca0f/options/61b4b15538526964d18637ea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"61b2ac9601290129410aca0f",
+						"options",
+						"61b4b15538526964d18637ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletes the specified product option.",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/products/61b2ac9601290129410aca0f/options/61b4a5f68988d95a082369e5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"61b2ac9601290129410aca0f",
+						"options",
+						"61b4a5f68988d95a082369e5"
+					]
+				}
 			},
 			"response": []
 		}

@@ -9,6 +9,7 @@ const Product = require('../models/Product');
 const productController = require('../controllers/product.controller');
 
 
+
 //APIs
 router.get('/products', asyncHandler(getProducts));
 router.get('/productsName', asyncHandler(getProductWithName));
@@ -136,6 +137,12 @@ async function deleteProduct(req,res) {
  */
 async function getProductOptions(req, res) {
     Product.findById(req.params.productId, (err, result) => {
+        if(err) {
+            res.json({
+                success: false,
+                error: err
+            });
+        }
         res.json({
             success: true,
             items: result.options
@@ -150,10 +157,23 @@ async function getProductOptions(req, res) {
  * - finds the specified product option for the specified product.
  */
 async function getSpecifiedOption(req, res) {
-
-    res.json({
-        success: true,
-        items: true
+    let prodId = { _id: req.params.productId };
+    let query = {   options: {
+        $elemMatch: {  
+                _id: req.params.optionId
+            }
+        }
+    }
+    Product.findOne(prodId, query,(err, result) => {
+        console.log("Option found for requested Product:", result.options);
+        if(err) {
+            console.log(err);
+            return;
+        }
+        res.json({
+            success: true,
+            items: result
+        })
     })
 }
 
@@ -188,9 +208,24 @@ async function addProductOption(req, res) {
  */
 async function updateProductOption(req, res) {
 
-    res.json({
-        success: true,
-        items: true
+    let prodId = { _id: req.params.productId, 'options._id': req.params.optionId };
+    let query = {   $set: {
+                'options.$.name': req.body.name,
+                'options.$.description': req.body.description
+            }
+        }
+
+    Product.updateOne(prodId, query, (err, product) => {
+        console.log(`Product Option updated for ${req.params.productId}`);
+            if(err) {
+                console.log(`Error while updating Option for ${req.params.optionId}, ${err}`);
+                return;
+            }
+            res.json({
+                success: true,
+                items: product
+            })      
+        
     })
 }
 
@@ -201,10 +236,27 @@ async function updateProductOption(req, res) {
  */
 async function deleteProductOption(req, res) {
 
-    res.json({
-        success: true,
-        items: true
+    let prodId = { _id: req.params.productId };
+    let query = {   $pull: {
+            options: {  
+                _id: req.params.optionId
+            }
+        }
+    }
+
+    Product.updateOne(prodId, query, (err, product) => {
+        console.log(`Product Option deleted for ${req.params.productId}`);
+            if(err) {
+                console.log(`Error while deleting Options for ${req.params.optionId}, ${err}`);
+                return;
+            }
+            res.json({
+                success: true,
+                items: product
+            })      
+        
     })
+    
 }
 
 module.exports = router;
