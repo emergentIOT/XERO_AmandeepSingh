@@ -15,9 +15,13 @@ router.get('/products/:productId', asyncHandler(getProduct));
 router.post('/products', asyncHandler(saveProduct));
 router.put('/products/:productId', asyncHandler(updateProduct));
 router.delete('/products/:productId', asyncHandler(deleteProduct));
-
 router.get('/products/:productId/options', asyncHandler(getProductOptions));
-router.post('/products/:productId/options/:optionId', asyncHandler(updateProductOptionById));
+router.get('/products/:productId/options/:optionId', asyncHandler(getSpecifiedOption));
+router.post('/products/:productId/options', asyncHandler(addProductOption));
+router.put('/products/:productId/options/:optionId', asyncHandler(updateProductOption));
+router.delete('/products/:productId/options/:optionId', asyncHandler(deleteProductOption));
+
+
 
 /**
  * GET
@@ -140,11 +144,50 @@ async function getProductOptions(req, res) {
 }
 
 /**
- * POST
+ * GET
  * /products/:productId/options/:optionId
- * -Updates the specified product option.
+ * - finds the specified product option for the specified product.
  */
-async function updateProductOptionById() {
+async function getSpecifiedOption(req, res) {
+
+    res.json({
+        success: true,
+        items: true
+    })
+}
+
+/**
+ * POST
+ * /products/:productId/options
+ * -adds a new product option to the specified product.
+ */
+async function addProductOption() {
+
+    res.json({
+        success: true,
+        items: true
+    })
+}
+
+/**
+ * PUT
+ * /products/:productId/options/:optionId
+ * -updates the specified product option.
+ */
+async function updateProductOption(req, res) {
+
+    res.json({
+        success: true,
+        items: true
+    })
+}
+
+/**
+ * DELETE
+ * /products/:productId/options/:optionId
+ * -deletes the specified product option.
+ */
+async function deleteProductOption(req, res) {
 
     res.json({
         success: true,

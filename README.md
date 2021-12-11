@@ -20,6 +20,7 @@ There should be these endpoints:
 
 7. `GET /products/{id}/options` - finds all options for a specified product.
 8. `GET /products/{id}/options/{optionId}` - finds the specified product option for the specified product.
+
 9. `POST /products/{id}/options` - adds a new product option to the specified product.
 10. `PUT /products/{id}/options/{optionId}` - updates the specified product option.
 11. `DELETE /products/{id}/options/{optionId}` - deletes the specified product option.
