@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-server": "nodemon index.js",
+    "docker-build": "docker build -t productsapi .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
