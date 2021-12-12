@@ -21,7 +21,7 @@ function updateProduct(id,product, callback) {
   
   }
   console.log(update);
-	Product.updateOne(query, { $set: {update} }, callback);
+	Product.updateOne(query, update, callback);
 }
 
 function deleteProduct(id, callback) {

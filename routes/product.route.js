@@ -55,8 +55,15 @@ async function getProductWithName(req, res) {
     Product.find(query)      
         .sort({ _id : LATEST_ID })
         .exec(function(err, result) {
+            if(err) {
+                res.json({
+                    success: false,
+                    data: err
+                })
+                return;
+            }
             res.json({
-                success: true,
+                success: false,
                 data: result
             })
         });
@@ -136,18 +143,24 @@ async function deleteProduct(req,res) {
  * -finds all options for a specified product.
  */
 async function getProductOptions(req, res) {
-    Product.findById(req.params.productId, (err, result) => {
-        if(err) {
+    try{
+        Product.findById(req.params.productId, (err, result) => {
+            if(err) {
+                res.json({
+                    success: false,
+                    error: err
+                });
+                return;
+            }
             res.json({
-                success: false,
-                error: err
-            });
-        }
-        res.json({
-            success: true,
-            items: result.options
+                success: true,
+                items: result.options
+            })
         })
-    })
+    } catch (error) {
+        console.log(error);
+    }
+   
     
 }
 

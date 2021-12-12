@@ -24,54 +24,17 @@ There should be these endpoints:
 
 All models are specified in the `/Models` folder, but should conform to:
 
-**Product:**
+## Help while running Docker Solution
 
-```
-{
-  "Id": "01234567-89ab-cdef-0123-456789abcdef",
-  "Name": "Product name",
-  "Description": "Product description",
-  "Price": 123.45,
-  "DeliveryPrice": 12.34
-}
-```
+## Stop container on current dir 2. if there is a docker-compose.yml
 
-**Products:**
+1. docker-compose down
 
-```
-{
-  "Items": [
-    {
-      // product
-    },
-    {
-      // product
-    }
-  ]
-}
-```
+## Remove all containers
 
-**Product Option:**
+2. docker rm -fv $(docker ps -aq)
 
-```
-{
-  "Id": "01234567-89ab-cdef-0123-456789abcdef",
-  "Name": "Product name",
-  "Description": "Product description"
-}
-```
+## List who's using the port
 
-**Product Options:**
-
-```
-{
-  "Items": [
-    {
-      // product option
-    },
-    {
-      // product option
-    }
-  ]
-}
-```
+3. sudo lsof -i -P -n | grep <port number>
+4. then: - kill -9 <process id> (macOS) or - sudo kill <process id> (Linux).
