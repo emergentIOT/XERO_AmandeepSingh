@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  productsapi:
+    image: productsapi
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - xero-app
+    volumes:
+      - /home/node/app
+  mongo:
+    image: mongo:4.4-bionic
+    ports:
+      - "27017:27017"
+    networks:
+      - xero-app
+    volumes:
+      - mongo-data:/data/db
+networks:
+  xero-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
