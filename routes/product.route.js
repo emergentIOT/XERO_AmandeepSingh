@@ -112,7 +112,11 @@ async function getProduct(req, res) {
 async function saveProduct(req, res) {
 
     if(!req.body.name) {
-        res.status(400).send({message: "Product cannot be empty"});
+        res.status(400).send({message: "Product name is missing"});
+        return;
+    }
+    if(!req.body.description) {
+        res.status(400).send({message: "Product description is missing"});
         return;
     }
     const product = req.body;
@@ -186,10 +190,7 @@ async function getProductOptions(req, res) {
     try{
         Product.findById(prodId, (err, result) => {
             if(err) {
-                res.json({
-                    success: false,
-                    error: err
-                });
+                res.status(400).send({message:`Error while getting Option for ${req.params.productId}, ${err}`});
                 return;
             }
             res.json({
@@ -219,10 +220,7 @@ async function getSpecifiedOption(req, res) {
     Product.findOne(prodId, query,(err, result) => {
         console.log("Option found for requested Product:", result.options);
         if(err) {
-            res.json({
-                succes: false,
-                message: err
-            })
+            res.status(400).send({message:`Error while getting product option for ${req.params.optionId}, ${err}`});
             return;
         }
         res.json({
@@ -247,6 +245,7 @@ async function addProductOption(req, res) {
     productController.pushOptions(prodId, payload, (err, result) => {
         if(err) {
             console.log("Error: ", err);
+            res.status(400).send({message:`Error while creating new option for ${req.params.productId}, ${err}`});
             return;
         }
         console.log(`Success : ${result}`);
@@ -304,7 +303,7 @@ async function deleteProductOption(req, res) {
     Product.updateOne(prodId, query, (err, product) => {
         console.log(`Product Option deleted for ${req.params.productId}`);
             if(err) {
-                console.log(`Error while deleting Options for ${req.params.optionId}, ${err}`);
+                res.status(400).send({message:`Error while deleting Option for ${req.params.optionId}, ${err}`});
                 return;
             }
             res.json({

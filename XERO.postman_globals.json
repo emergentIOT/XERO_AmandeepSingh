@@ -3,7 +3,7 @@
 	"values": [
 		{
 			"key": "productsAPI",
-			"value": "http://localhost:3000/api/v1/products/",
+			"value": "http://localhost:3000/api/v1",
 			"enabled": true
 		}
 	],

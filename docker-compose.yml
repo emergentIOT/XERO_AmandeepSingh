@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   productsapi:
-    image: productsapi
+    image: aman24jan/productsapi
     restart: on-failure
     stdin_open: true
     ports:
@@ -19,7 +19,7 @@ services:
         delay: 5s
         max_attempts: 5
   mongo:
-    image: mongo:4.4-bionic
+    image: aman24jan/mongo:4.4
     ports:
       - "27017:27017"
     networks:
