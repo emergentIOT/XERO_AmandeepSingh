@@ -1,0 +1,14 @@
+{
+	"id": "42247ce2-1ae7-417e-8419-9c4ffde9c643",
+	"values": [
+		{
+			"key": "productsAPI",
+			"value": "http://localhost:3000/api/v1/products/",
+			"enabled": true
+		}
+	],
+	"name": "My Workspace Globals",
+	"_postman_variable_scope": "Environment",
+	"_postman_exported_at": "2021-12-13T11:55:56.603Z",
+	"_postman_exported_using": "Postman/8.12.5"
+}

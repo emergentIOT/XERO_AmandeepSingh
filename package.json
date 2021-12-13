@@ -7,6 +7,7 @@
     "start-server": "nodemon index.js",
     "docker-build": "docker build -t productsapi .",
     "docker-compose": "docker-compose up",
+    "test-api": "newman run 'https://www.getpostman.com/collections/ae29476c06b6d613f7c3' -e 'XERO.postman_globals.json' -k",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +30,7 @@
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
     "logger": "^0.0.1",
-    "mongoose": "^5.7.7"
+    "mongoose": "^5.7.7",
+    "newman": "^5.3.0"
   }
 }

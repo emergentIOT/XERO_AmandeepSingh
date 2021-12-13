@@ -12,7 +12,7 @@ const productController = require('../controllers/product.controller');
 
 //APIs
 router.get('/products', asyncHandler(getProducts));
-router.get('/productsName', asyncHandler(getProductWithName));
+router.get('/products', asyncHandler(getProductWithName));
 router.get('/products/:productId', asyncHandler(getProduct));
 router.post('/products', asyncHandler(saveProduct));
 router.put('/products/:productId', asyncHandler(updateProduct));
@@ -55,7 +55,7 @@ async function getProducts(req, res, next) {
  * - finds all products matching the specified name.
  */
 async function getProductWithName(req, res) {
-    
+
     let name = req.query.name;  
     var LATEST_ID = -1;
     let query = {};
