@@ -153,6 +153,7 @@ async function deleteProduct(req,res) {
         if(err) {
             res.json({
                 success: false,
+                data: "Product not found",
                 message: err
             })
             return;
@@ -215,7 +216,7 @@ async function getSpecifiedOption(req, res) {
         }
         res.json({
             success: true,
-            items: result
+            items: result == null ? "No Data found" : result
         })
     })
 }
@@ -261,7 +262,7 @@ async function updateProductOption(req, res) {
     Product.updateOne(prodId, query, (err, product) => {
         console.log(`Product Option updated for ${req.params.productId}`);
             if(err) {
-                console.log(`Error while updating Option for ${req.params.optionId}, ${err}`);
+                res.status(400).send({message:`Error while updating Option for ${req.params.optionId}, ${err}`});
                 return;
             }
             res.json({
