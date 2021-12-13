@@ -1,18 +1,29 @@
 const Product = require('../models/Product');
-//const { delete } = require('../routes/product.route');
 
 
-
+/**
+ * 
+ * @param {Object} product 
+ * Save Obj to Db.
+ */
 async function insert(product) {
+  if(!product) {
+    return;
+  }
     console.log(`Inserting product in db ${product}`)
     const submit = await new Product(product).save();
     return submit;
 }
 
+/**
+ * 
+ * @param {ProductID} id 
+ * @param {Object} product 
+ * @param {*} callback 
+ */
 function updateProduct(id,product, callback) {
  
   var query = {_id: id};
-  console.log("query", query);
 	var update = {
 		name: product.name,
 		description: product.description,
@@ -24,11 +35,22 @@ function updateProduct(id,product, callback) {
 	Product.updateOne(query, update, callback);
 }
 
+/**
+ * 
+ * @param {Product ID} id 
+ * @param {*} callback 
+ */
 function deleteProduct(id, callback) {
     var query = {_id: id};
     Product.remove(query, callback);
 }
 
+/**
+ * 
+ * @param {Product ID} id 
+ * @param {Name & Description} payload 
+ * @param {*} callback 
+ */
 function pushOptions(id, payload, callback) {
   var q = { _id: id };
   var option = {
@@ -39,33 +61,7 @@ function pushOptions(id, payload, callback) {
   Product.updateOne( q, { $push : { options: [option]}}, callback);
 }
 
-
-// .delete((req,res)=>{
-//     User.findByIdAndDelete(req.params.id, (err, data) => {sendResponse(res, err, data)})
-//   })
-  
-//   function sendResponse(res,err,data){
-//     if (err){
-//       res.json({
-//         success: false,
-//         message: err
-//       })
-//     } else if (!data){
-//       res.json({
-//         success: false,
-//         message: "Not Found"
-//       })
-//     } else {
-//       res.json({
-//         success: true,
-//         data: data
-//       })
-//     }
-//   }
-
-
 module.exports = {
-
   insert,
   updateProduct,
   deleteProduct,

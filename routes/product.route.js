@@ -31,12 +31,20 @@ router.delete('/products/:productId/options/:optionId', asyncHandler(deleteProdu
  * - get all products.  
  */
 async function getProducts(req, res, next) {
-    console.log('requested');
+
     Product.find({}, (err, result) => {
+        if(err) {
+            res.json({
+                success: false,
+                data: err
+            })
+            return;
+        } 
         res.json({
             success: true,
             data: result
         })
+    
     })
     
 }
@@ -63,7 +71,7 @@ async function getProductWithName(req, res) {
                 return;
             }
             res.json({
-                success: false,
+                success: true,
                 data: result
             })
         });
@@ -78,6 +86,13 @@ async function getProductWithName(req, res) {
 async function getProduct(req, res) {
     Product.findById(req.params.productId, (err, result) => {
         console.log("Result", req.params.productId);
+        if(result == null) {
+            res.json({
+                success: false,
+                data: "No Product found with given ID."
+            })
+            return;
+        }
         res.json({
             success: true,
             data: result
@@ -92,10 +107,12 @@ async function getProduct(req, res) {
  * - creates a new product.
  */
 async function saveProduct(req, res) {
+    if(!req.body.name) {
+        res.status(400).send({message: "Product cannot be empty"});
+        return;
+    }
     const product = req.body;
-    console.log(`Resigeter user ${product}`);
     const savedProduct = await productController.insert(product);
-
     res.json({
         success: true,
         data: savedProduct
@@ -111,6 +128,13 @@ async function updateProduct(req, res) {
     const product = req.body;
     console.log(product);
     productController.updateProduct(req.params.productId,product, (err, result) => {
+        if(err) {
+            res.json({
+                success: false,
+                message: err
+            })
+            return;
+        }
         res.json({
             success: true,
             updatedProduct: result
@@ -125,9 +149,14 @@ async function updateProduct(req, res) {
  * - deletes a product and its options.
  */
 async function deleteProduct(req,res) {
-    console.log("id", req.params.productId);
     productController.deleteProduct(req.params.productId, (err, result) => {
-       
+        if(err) {
+            res.json({
+                success: false,
+                message: err
+            })
+            return;
+        }
         res.json({
             success: true,
             data: result
@@ -160,8 +189,6 @@ async function getProductOptions(req, res) {
     } catch (error) {
         console.log(error);
     }
-   
-    
 }
 
 /**
@@ -180,7 +207,10 @@ async function getSpecifiedOption(req, res) {
     Product.findOne(prodId, query,(err, result) => {
         console.log("Option found for requested Product:", result.options);
         if(err) {
-            console.log(err);
+            res.json({
+                succes: false,
+                message: err
+            })
             return;
         }
         res.json({

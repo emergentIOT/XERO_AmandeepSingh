@@ -38,3 +38,4 @@ All models are specified in the `/Models` folder, but should conform to:
 
 3. sudo lsof -i -P -n | grep <port number>
 4. then: - kill -9 <process id> (macOS) or - sudo kill <process id> (Linux).
+   MONGODB_URI=mongodb://mongo:27017/products
