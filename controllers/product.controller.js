@@ -7,6 +7,7 @@ const Product = require('../models/Product');
  * Save Obj to Db.
  */
 async function insert(product) {
+
   if(!product) {
     return;
   }
@@ -41,6 +42,7 @@ function updateProduct(id,product, callback) {
  * @param {*} callback 
  */
 function deleteProduct(id, callback) {
+
     var query = {_id: id};
     Product.remove(query, callback);
 }
@@ -52,6 +54,7 @@ function deleteProduct(id, callback) {
  * @param {*} callback 
  */
 function pushOptions(id, payload, callback) {
+  
   var q = { _id: id };
   var option = {
     name: payload.name,

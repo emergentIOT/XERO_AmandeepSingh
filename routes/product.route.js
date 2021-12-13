@@ -55,6 +55,7 @@ async function getProducts(req, res, next) {
  * - finds all products matching the specified name.
  */
 async function getProductWithName(req, res) {
+    
     let name = req.query.name;  
     var LATEST_ID = -1;
     let query = {};
@@ -84,7 +85,9 @@ async function getProductWithName(req, res) {
  * - gets the project that matches the specified ID.
  */
 async function getProduct(req, res) {
-    Product.findById(req.params.productId, (err, result) => {
+
+    let prodId = { _id: req.params.productId };
+    Product.findById(prodId, (err, result) => {
         console.log("Result", req.params.productId);
         if(result == null) {
             res.json({
@@ -107,6 +110,7 @@ async function getProduct(req, res) {
  * - creates a new product.
  */
 async function saveProduct(req, res) {
+
     if(!req.body.name) {
         res.status(400).send({message: "Product cannot be empty"});
         return;
@@ -125,9 +129,11 @@ async function saveProduct(req, res) {
  * - updates a product.
  */
 async function updateProduct(req, res) {
+
+    let prodId = { _id: req.params.productId };
     const product = req.body;
     console.log(product);
-    productController.updateProduct(req.params.productId,product, (err, result) => {
+    productController.updateProduct(prodId, product, (err, result) => {
         if(err) {
             res.json({
                 success: false,
@@ -149,7 +155,9 @@ async function updateProduct(req, res) {
  * - deletes a product and its options.
  */
 async function deleteProduct(req,res) {
-    productController.deleteProduct(req.params.productId, (err, result) => {
+
+    let prodId = { _id: req.params.productId };
+    productController.deleteProduct(prodId, (err, result) => {
         if(err) {
             res.json({
                 success: false,
@@ -173,8 +181,10 @@ async function deleteProduct(req,res) {
  * -finds all options for a specified product.
  */
 async function getProductOptions(req, res) {
+
+    let prodId = { _id: req.params.productId };
     try{
-        Product.findById(req.params.productId, (err, result) => {
+        Product.findById(prodId, (err, result) => {
             if(err) {
                 res.json({
                     success: false,
@@ -198,6 +208,7 @@ async function getProductOptions(req, res) {
  * - finds the specified product option for the specified product.
  */
 async function getSpecifiedOption(req, res) {
+
     let prodId = { _id: req.params.productId };
     let query = {   options: {
         $elemMatch: {  
@@ -227,11 +238,13 @@ async function getSpecifiedOption(req, res) {
  * -adds a new product option to the specified product.
  */
 async function addProductOption(req, res) {
+
+    let prodId = { _id : req.params.productId };
     let payload = {
         name: req.body.name,
         description: req.body.description
     }
-    productController.pushOptions(req.params.productId, payload, (err, result) => {
+    productController.pushOptions(prodId, payload, (err, result) => {
         if(err) {
             console.log("Error: ", err);
             return;
