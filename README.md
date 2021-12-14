@@ -1,30 +1,43 @@
-# refactor-this
+# Hi team, i have rebuild the given solution in Nodejs and Mongodb and dockerize it for better infrastructure.
 
-The attached project is a poorly written products API in C#.
+### Docker Setup: I have used two images, which i have build & uploaded on my Docker account and i have used docker-compose.yml(included in project) to run services all together.
 
-Please evaluate and refactor areas where you think can be improved.
+- I am assuming that docker is intall in the system otherwise its very easy to setup.
+- Link: https://docs.docker.com/get-docker/
+- Link: https://docs.docker.com/compose/install/
+- After installing docker , please run in terminal
+  - 1.  docker -v
+  - 2.  docker-compose -v
+    - If above two commands give version number then you are ready to run the app.
+  - 3. RUN: docker-compose up , the server is up and running , to test:
+       - http://localhost:3000/api/v1/products (Hit the URL in any browser or in POSTMAN)
+  - 4. Move to below instruction to run POSTMAN scripts or you can play in POSTMAN.
 
-Consider all aspects of good software engineering and show us how you'll make it #beautiful and make it a production ready code.
+### I have used Postman to setup testing of endpoints.
 
-## Getting staarted for applicants
+- Download postman : https://www.postman.com/downloads/
+- RUN: npm i -g newman (To run test script, https://www.npmjs.com/package/newman)
+- API Schema:
+- Command to test all endpoints together:
+- To play with endpoints, please export <> file in Postman desktop app.
 
-There should be these endpoints:
+## Endpoints: All routes are defined in routes/product.route.js
 
 1. `GET /products` - gets all products.
 2. `GET /products?name={name}` - finds all products matching the specified name.
-3. `GET /products/{id}` - gets the project that matches the specified ID - ID is a GUID.
+3. `GET /products/{productID}` - gets the project that matches the specified ID - ID is a GUID.
 4. `POST /products` - creates a new product.
-5. `PUT /products/{id}` - updates a product.
-6. `DELETE /products/{id}` - deletes a product and its options.
-7. `GET /products/{id}/options` - finds all options for a specified product.
-8. `GET /products/{id}/options/{optionId}` - finds the specified product option for the specified product.
-9. `POST /products/{id}/options` - adds a new product option to the specified product.
-10. `PUT /products/{id}/options/{optionId}` - updates the specified product option.
-11. `DELETE /products/{id}/options/{optionId}` - deletes the specified product option.
+5. `PUT /products/{productID}` - updates a product.
+6. `DELETE /products/{productID}` - deletes a product and its options.
+7. `GET /products/{productID}/options` - finds all options for a specified product.
+8. `GET /products/{productID}/options/{optionId}` - finds the specified product option for the specified product.
+9. `POST /products/{productID}/options` - adds a new product option to the specified product.
+10. `PUT /products/{productID}/options/{optionId}` - updates the specified product option.
+11. `DELETE /products/{productID}/options/{optionId}` - deletes the specified product option.
 
-All models are specified in the `/Models` folder, but should conform to:
+All models are specified in the `/Models` folder,
 
-## Help while running Docker Solution
+### Help while running Docker Solution, (If docker file gives error while executing above commands. Follow below instructions)
 
 ## Stop container on current dir 2. if there is a docker-compose.yml
 
@@ -36,7 +49,5 @@ All models are specified in the `/Models` folder, but should conform to:
 
 ## List who's using the port
 
-3. sudo lsof -i -P -n | grep <port number>
+3. sudo lsof -i -P -n | grep 27017
 4. then: - kill -9 <process id> (macOS) or - sudo kill <process id> (Linux).
-   MONGODB_URI=mongodb://mongo:27017/products
-   //image: mongo:4.4-bionic
