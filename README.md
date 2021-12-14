@@ -19,7 +19,7 @@
 - Download postman : https://www.postman.com/downloads/
 - RUN: npm i -g newman (To run test script, https://www.npmjs.com/package/newman)
 - Command to test all endpoints together:
-  1.  RUN: npm run test-api (if it gives error , go to point 2)
+  1.  RUN: npm run test-api (if it gives error , go to point ii)
   2.  RUN: newman run https://www.postman.com/collections/ae29476c06b6d613f7c3 -e XERO.postman_globals.json -k
 - To play with endpoints, please import XERO_AmandeepSingh.postman_collection.json (Included in project dir) file in Postman desktop app.
 
