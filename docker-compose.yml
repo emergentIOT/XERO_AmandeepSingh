@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   productsapi:
-    image: aman24jan/productsapi
+    image: aman24jan/productsapi:xero
     restart: on-failure
     stdin_open: true
     ports:
@@ -19,7 +19,7 @@ services:
         delay: 5s
         max_attempts: 5
   mongo:
-    image: aman24jan/mongo:4.4
+    image: aman24jan/mongo:xero
     ports:
       - "27017:27017"
     networks:

@@ -15,13 +15,17 @@
 
 ### I have used Postman to setup testing of endpoints.
 
+- API Schema: https://www.getpostman.com/collections/ae29476c06b6d613f7c3
 - Download postman : https://www.postman.com/downloads/
 - RUN: npm i -g newman (To run test script, https://www.npmjs.com/package/newman)
-- API Schema:
 - Command to test all endpoints together:
-- To play with endpoints, please export <> file in Postman desktop app.
+  1.  RUN: npm run test-api (if it gives error , go to point 2)
+  2.  RUN: newman run https://www.postman.com/collections/ae29476c06b6d613f7c3 -e XERO.postman_globals.json -k
+- To play with endpoints, please import XERO_AmandeepSingh.postman_collection.json (Included in project dir) file in Postman desktop app.
 
 ## Endpoints: All routes are defined in routes/product.route.js
+
+- Base URL: http://localhost:3000/api/v1
 
 1. `GET /products` - gets all products.
 2. `GET /products?name={name}` - finds all products matching the specified name.

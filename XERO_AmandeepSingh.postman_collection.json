@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "cd2ffe97-ad38-40fb-a663-093fafa39f92",
+		"name": "XERO_AmandeepSingh",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Gets all products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{productsAPI}}/products",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find all products matching the specified name.",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{productsAPI}}products/?name=Mens Casual Premium Slim Fit T-Shirts",
+					"host": [
+						"{{productsAPI}}products"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Mens Casual Premium Slim Fit T-Shirts"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gets the project that matches the specified ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7ea9c343a2f001f40a61e",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7ea9c343a2f001f40a61e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creates a new product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Mens Cotton Jacket\",\n    \"description\": \"great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors.\",\n    \"price\": 44.45,\n    \"deliveryPrice\": 17.34,\n    \"options\": [{\n        \"name\": \"XL\",\n        \"description\": \"Good gift choice for you or your family member\"\n    }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{productsAPI}}/products",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updates a product.",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Mens Jacket\",\n        \"description\": \"From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl.\",\n        \"price\": 13.45,\n        \"deliveryPrice\": 12.34\n}"
+				},
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7eb35343a2f001f40a62b",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7eb35343a2f001f40a62b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletes a product and its options.",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7ead6343a2f001f40a622",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7ead6343a2f001f40a622"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finds all options for a specified product.",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7eb35343a2f001f40a62b/options",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7eb35343a2f001f40a62b",
+						"options"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Finds all options for a specified product.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{productsAPI}}/products/61b2ac9601290129410aca0f/options",
+							"host": [
+								"{{productsAPI}}"
+							],
+							"path": [
+								"products",
+								"61b2ac9601290129410aca0f",
+								"options"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Finds the specified product option for the specified product.",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7eb35343a2f001f40a62b/options/61b7eb35343a2f001f40a62c",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7eb35343a2f001f40a62b",
+						"options",
+						"61b7eb35343a2f001f40a62c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adds a new product option to the specified product.",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"White Gold Plated Princess \",\n    \"description\" : \"Classic Created Wedding Engagement Solitaire Diamond Promise Ring for Her. Gifts to spoil your love more for Engagement, Wedding, Anniversary, Valentine's Day...\"\n}"
+				},
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7eb35343a2f001f40a62b/options",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7eb35343a2f001f40a62b",
+						"options"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updates the specified product option.",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Large\",\n    \"description\" : \"Rose Gold Plated Double Flared Tunnel Plug Earrings\"\n}"
+				},
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7eb35343a2f001f40a62b/options/61b7eb35343a2f001f40a62c",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7eb35343a2f001f40a62b",
+						"options",
+						"61b7eb35343a2f001f40a62c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletes the specified product option.",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{productsAPI}}/products/61b7eb35343a2f001f40a62b/options/61b7eb35343a2f001f40a62c",
+					"host": [
+						"{{productsAPI}}"
+					],
+					"path": [
+						"products",
+						"61b7eb35343a2f001f40a62b",
+						"options",
+						"61b7eb35343a2f001f40a62c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
