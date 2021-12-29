@@ -1,5 +1,9 @@
 # Hi team, i have rebuild the given solution in Nodejs and Mongodb and dockerize it for better infrastructure.
 
+1. Nodejs - V16.7.0
+2. MongoDB - V3.6.8
+3. NPM - V7.20.3
+
 ### Docker Setup: I have used two images, which i have build & uploaded on my Docker account and i have used docker-compose.yml(included in project) to run services all together.
 
 - I am assuming that docker is intall in the system otherwise its very easy to setup.
@@ -57,3 +61,6 @@ All models are specified in the `/Models` folder,
 4. then: - kill -9 <process id> (macOS) or - sudo kill <process id> (Linux).
 
 # Adding GITHUB Actions
+
+- CI - Merge code IN
+- CD - Release code OUT

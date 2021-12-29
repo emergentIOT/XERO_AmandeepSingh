@@ -12,4 +12,6 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
+      - run: npm run docker-mongo
       - run: npm run start-server
+      - run: npm run test-api
