@@ -55,3 +55,5 @@ All models are specified in the `/Models` folder,
 
 3. sudo lsof -i -P -n | grep 27017
 4. then: - kill -9 <process id> (macOS) or - sudo kill <process id> (Linux).
+
+# Adding GITHUB Actions
