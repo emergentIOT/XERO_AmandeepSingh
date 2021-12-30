@@ -7,7 +7,7 @@
     "start-server": "nodemon index.js",
     "docker-build": "docker build -t productsapi .",
     "docker-compose": "docker-compose up",
-    "docker-mongo": "docker run aman24jan/mongo:xero",
+    "docker-mongo": "docker run -d -p 27017:27017 aman24jan/mongo:xero",
     "test-api": "newman run 'https://www.postman.com/collections/ae29476c06b6d613f7c3' -e 'XERO.postman_globals.json' -k",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
