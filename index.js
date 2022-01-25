@@ -20,6 +20,12 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', routes);
 
+app.get('*', (req,res) => {
+    res.json({
+       message: 'Invalid endpoint'
+   })
+}) ;
+
 app.listen(config.port, () => {
     console.log(`Server is up and running at ${config.port}, running in ${config.env}`);
 })
