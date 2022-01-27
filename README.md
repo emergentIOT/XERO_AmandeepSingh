@@ -1,4 +1,4 @@
-# Hi team, i have rebuild the given solution in Nodejs and Mongodb and dockerize it for better infrastructure.
+# Nodejs and MongoDB Api
 
 ### Docker Setup: I have used two images, which i have build & uploaded on my Docker account and i have used docker-compose.yml(included in project) to run services all together.
 
