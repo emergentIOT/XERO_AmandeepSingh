@@ -10,7 +10,7 @@ const productController = require('../controllers/product.controller');
 
 
 
-//APIs
+//Products APIs with options
 router.get('/products', asyncHandler(getProducts));
 router.get('/products', asyncHandler(getProductWithName));
 router.get('/products/:productId', asyncHandler(getProduct));
