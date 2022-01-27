@@ -12,7 +12,7 @@ router.post('/register', asyncHandler(register));
 /**
  * POST
  * /register
- * - Register a user
+ * - Register a User
  */
 async function register(req, res) {
     try {
