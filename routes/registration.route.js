@@ -3,6 +3,7 @@ const router = express.Router();
 const asyncHandler = require('express-async-handler');
 const registerUser = require('../models/Register');
 const registerController = require('../controllers/registration.controller');
+const { BadRequest } = require('../utils/errors');
 
 
 //User Registration APIs
@@ -15,17 +16,19 @@ router.get('/user', asyncHandler(getUserByEmail));
  * /register
  * - Register a User
  */
-async function register(req, res) {
+async function register(req, res, next) {
     try {
 
         const password = req.body.password;
         const confirmPassword = req.body.confirmPassword;
         if(!req.body.name) {
-            res.json({
-                success: false,
-                message: 'Name is missing'
-            })
-            return;
+            // res.json({
+            //     success: false,
+            //     message: 'Name is missing'
+            // })
+
+            throw new BadRequest('Name is missing');
+           // return;
         }
         if(password == confirmPassword) {
             const user = await registerController.insert(req.body);
@@ -48,7 +51,8 @@ async function register(req, res) {
         // })
 
     } catch(err) {
-        res.status(400).send(err);
+        next(err);
+      
     }
    
 }
