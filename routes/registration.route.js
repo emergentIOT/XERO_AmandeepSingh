@@ -18,18 +18,17 @@ router.get('/user', asyncHandler(getUserByEmail));
  */
 async function register(req, res, next) {
     try {
-
-        const password = req.body.password;
-        const confirmPassword = req.body.confirmPassword;
-        if(!req.body.name) {
-            // res.json({
-            //     success: false,
-            //     message: 'Name is missing'
-            // })
-
-            throw new BadRequest('Name is missing');
-           // return;
+        const { name, email, phone, password, confirmPassword } = req.body;
+        if(!name) {
+            throw new BadRequest('name is missing');
         }
+        if(!email) {
+            throw new BadRequest('email is missing');
+        }
+        if(!phone) {
+            throw new BadRequest('phone is missing');
+        }
+
         if(password == confirmPassword) {
             const user = await registerController.insert(req.body);
             res.json({
@@ -38,17 +37,8 @@ async function register(req, res, next) {
             })
             return;
         } else {
-            res.json({
-                success: false,
-                message: 'Password didnt match.' 
-            })
-            return;
+            throw new BadRequest('passwords didnt match');
         }
-
-        // res.json({
-        //     success: true,
-        //     message: 'User Register sucessfully'
-        // })
 
     } catch(err) {
         next(err);
@@ -72,7 +62,7 @@ async function login(req, res) {
             message: 'Successfully login.' + userEmail
         })
     } catch(error) {
-        res.status(400).message(error);
+        throw new BadRequest(`Unexpected error: ${error}`);
     }
 } 
 

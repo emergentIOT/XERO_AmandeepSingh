@@ -2,27 +2,26 @@
  * Class GeneralError defines what errors we can throw in our APIs.
  * 
  */
- class GeneralError extends Error {
+class GeneralError extends Error {
+
     constructor(message) {
-      super();
-      this.message = message;
+        super();
+        this.message = message;
     }
-  
+
     getCode() {
-      if (this instanceof BadRequest) {
-        return 400;
-      } if (this instanceof NotFound) {
-        return 404;
-      }
-      return 500;
+        if(this instanceof BadRequest) {
+            return 400;
+        } if(this instanceof NotFound) {
+            return 404;
+        }
+        return 500;
     }
-  }
-  
-  class BadRequest extends GeneralError { }
-  class NotFound extends GeneralError { }
-  
-  module.exports = {
-    GeneralError,
-    BadRequest,
-    NotFound
-  };
+}
+
+class BadRequest extends GeneralError {}
+class NotFound extends GeneralError {}
+
+module.exports = {
+    GeneralError, BadRequest, NotFound
+};

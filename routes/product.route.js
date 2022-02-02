@@ -7,7 +7,7 @@ const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
 //Product Controller
 const productController = require('../controllers/product.controller');
-
+const { BadRequest } = require('../utils/errors');
 
 
 //Products APIs with options
@@ -34,11 +34,7 @@ async function getProducts(req, res, next) {
 
     Product.find({}, (err, result) => {
         if(err) {
-            res.json({
-                success: false,
-                data: err
-            })
-            return;
+           throw new BadRequest(`Unexpected Error: ${err}`)
         } 
         res.json({
             success: true,
@@ -65,10 +61,7 @@ async function getProductWithName(req, res) {
         .sort({ _id : LATEST_ID })
         .exec(function(err, result) {
             if(err) {
-                res.json({
-                    success: false,
-                    data: err
-                })
+                throw new BadRequest(`Unexpected error: ${err}`);
                 return;
             }
             res.json({
@@ -90,10 +83,7 @@ async function getProduct(req, res) {
     Product.findById(prodId, (err, result) => {
         console.log("Result", req.params.productId);
         if(result == null) {
-            res.json({
-                success: false,
-                data: "No Product found with given ID."
-            })
+            throw new BadRequest(`No data found with given id`);
             return;
         }
         res.json({
@@ -111,15 +101,13 @@ async function getProduct(req, res) {
  */
 async function saveProduct(req, res) {
 
-    if(!req.body.name) {
-        res.status(400).send({message: "Product name is missing"});
-        return;
+    const { name, description, product } = req.body;
+    if(!name) {
+        throw new BadRequest(`Product name is missing`);
     }
-    if(!req.body.description) {
-        res.status(400).send({message: "Product description is missing"});
-        return;
+    if(!description) {
+        throw new BadRequest(`Product description is missing`);
     }
-    const product = req.body;
     const savedProduct = await productController.insert(product);
     res.json({
         success: true,
@@ -139,11 +127,7 @@ async function updateProduct(req, res) {
     console.log(product);
     productController.updateProduct(prodId, product, (err, result) => {
         if(err) {
-            res.json({
-                success: false,
-                message: err
-            })
-            return;
+            throw new BadRequest(`Unexpected error: ${err}`);
         }
         res.json({
             success: true,
@@ -163,12 +147,7 @@ async function deleteProduct(req,res) {
     let prodId = { _id: req.params.productId };
     productController.deleteProduct(prodId, (err, result) => {
         if(err) {
-            res.json({
-                success: false,
-                data: "Product not found",
-                message: err
-            })
-            return;
+            throw new BadRequest(`Product not found.`);
         }
         res.json({
             success: true,
@@ -190,8 +169,7 @@ async function getProductOptions(req, res) {
     try{
         Product.findById(prodId, (err, result) => {
             if(err) {
-                res.status(400).send({message:`Error while getting Option for ${req.params.productId}, ${err}`});
-                return;
+                throw new BadRequest(`Error while getting Option for ${req.params.productId}, ${err}`);
             }
             res.json({
                 success: true,
@@ -220,8 +198,7 @@ async function getSpecifiedOption(req, res) {
     Product.findOne(prodId, query,(err, result) => {
         console.log("Option found for requested Product:", result.options);
         if(err) {
-            res.status(400).send({message:`Error while getting product option for ${req.params.optionId}, ${err}`});
-            return;
+            throw new BadRequest(`Error while getting product option for ${req.params.optionId}, ${err}`);
         }
         res.json({
             success: true,
@@ -244,11 +221,8 @@ async function addProductOption(req, res) {
     }
     productController.pushOptions(prodId, payload, (err, result) => {
         if(err) {
-            console.log("Error: ", err);
-            res.status(400).send({message:`Error while creating new option for ${req.params.productId}, ${err}`});
-            return;
+            throw new BadRequest(`Error while creating new option for ${req.params.productId}, ${err}`);
         }
-        console.log(`Success : ${result}`);
         res.json({
             success: true,
             items: result
@@ -274,8 +248,7 @@ async function updateProductOption(req, res) {
     Product.updateOne(prodId, query, (err, product) => {
         console.log(`Product Option updated for ${req.params.productId}`);
             if(err) {
-                res.status(400).send({message:`Error while updating Option for ${req.params.optionId}, ${err}`});
-                return;
+                throw new BadRequest(`Error while updating Option for ${req.params.optionId}, ${err}`);
             }
             res.json({
                 success: true,
@@ -303,8 +276,7 @@ async function deleteProductOption(req, res) {
     Product.updateOne(prodId, query, (err, product) => {
         console.log(`Product Option deleted for ${req.params.productId}`);
             if(err) {
-                res.status(400).send({message:`Error while deleting Option for ${req.params.optionId}, ${err}`});
-                return;
+                throw new BadRequest(`Error while deleting Option for ${req.params.optionId}, ${err}`);
             }
             res.json({
                 success: true,
