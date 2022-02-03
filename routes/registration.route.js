@@ -63,12 +63,17 @@ async function login(req, res) {
     try {
         const { email, password } = req.body;
         const userEmail = await registerUser.findOne({email});
-        res.json({
-            success: true,
-            message: 'Successfully login.' + userEmail
-        })
+        if(userEmail.password == password) {
+            res.json({
+                success: true,
+                message: 'Successfully login.' + userEmail
+            })
+        } else {
+            //throw new InValid(`Invalid login details`);
+        }
+     
     } catch(error) {
-        res.status(400).message(error);
+        res.status(400).message({error});
     }
 } 
 
