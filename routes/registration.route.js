@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 const registerUser = require('../models/Register');
 const registerController = require('../controllers/registration.controller');
@@ -63,13 +64,16 @@ async function login(req, res) {
     try {
         const { email, password } = req.body;
         const userEmail = await registerUser.findOne({ email });
-        if(userEmail.password === password) {
-            res.json({
+        //compare the hashed password from db.
+        const isMatch = await bcrypt.compare(password, userEmail.password);
+
+        if(isMatch) {
+            res.status(200).json({
                 success: true,
                 message: userEmail
             })
         } else {
-            res.json({
+            res.status(401).json({
                 success: false,
                 message: 'Invalid login details.'
             })
