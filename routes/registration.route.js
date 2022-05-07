@@ -22,7 +22,7 @@ async function register(req, res) {
         const { name, password, confirmPassword } = req.body;
         
         if(!name) {
-            res.json({
+            res.status(400).json({
                 success: false,
                 message: 'Name is missing'
             })
@@ -30,13 +30,13 @@ async function register(req, res) {
         }
         if(password == confirmPassword) {
             const user = await registerController.insert(req.body);
-            res.json({
+            res.status(200).json({
                 success: true,
                 message: user
             })
             return;
         } else {
-            res.json({
+            res.status(400).json({
                 success: false,
                 message: 'Password didnt match.' 
             })
