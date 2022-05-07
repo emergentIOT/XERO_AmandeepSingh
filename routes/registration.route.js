@@ -7,7 +7,7 @@ const registerController = require('../controllers/registration.controller');
 
 //User Registration APIs
 router.post('/register', asyncHandler(register));
-router.get('/login', asyncHandler(login));
+router.post('/login', asyncHandler(login));
 router.get('/user', asyncHandler(getUserByEmail));
 
 /**
@@ -18,9 +18,9 @@ router.get('/user', asyncHandler(getUserByEmail));
 async function register(req, res) {
     try {
 
-        const password = req.body.password;
-        const confirmPassword = req.body.confirmPassword;
-        if(!req.body.name) {
+        const { name, password, confirmPassword } = req.body;
+        
+        if(!name) {
             res.json({
                 success: false,
                 message: 'Name is missing'
@@ -62,18 +62,22 @@ async function login(req, res) {
 
     try {
         const { email, password } = req.body;
-        const userEmail = await registerUser.findOne({email});
-        if(userEmail.password == password) {
+        const userEmail = await registerUser.findOne({ email });
+        if(userEmail.password === password) {
             res.json({
                 success: true,
-                message: 'Successfully login.' + userEmail
+                message: userEmail
             })
         } else {
+            res.json({
+                success: false,
+                message: 'Invalid login details.'
+            })
             //throw new InValid(`Invalid login details`);
         }
      
     } catch(error) {
-        res.status(400).message({error});
+        res.status(400).send({error});
     }
 } 
 
