@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 require('./config/mongoose');
 //API Calls 
 const routes = require('./routes/index');
+const jwt = require('jsonwebtoken');
+const { user } = require('./config/mongoose');
 
 
 const app = express();
@@ -20,6 +22,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api', routes);
 
+//invalid endpoints
 app.get('*', (req,res) => {
     res.json({
        message: 'Invalid endpoint'

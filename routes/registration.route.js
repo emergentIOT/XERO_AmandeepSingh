@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const asyncHandler = require('express-async-handler');
 const registerUser = require('../models/Register');
 const registerController = require('../controllers/registration.controller');
+const Register = require('../models/Register');
 
 
 //User Registration APIs
@@ -19,7 +20,7 @@ router.get('/user', asyncHandler(getUserByEmail));
 async function register(req, res) {
     try {
 
-        const { name, password, confirmPassword } = req.body;
+        const { name, phone, email, password, confirmPassword } = req.body;
         
         if(!name) {
             res.status(400).json({
@@ -29,7 +30,20 @@ async function register(req, res) {
             return;
         }
         if(password == confirmPassword) {
-            const user = await registerController.insert(req.body);
+
+            const registerUser = new Register({
+                name, phone, email, password, confirmPassword
+            })
+
+            //Generating JWT token
+            const token = await registerUser.generateAuthToken();
+            console.log(token);
+            if(!token) {
+                res.status(400).json({ message: "No jwt token created" })
+                return;
+            }
+            //Register User to db
+            const user = await registerUser.save();
             res.status(200).json({
                 success: true,
                 message: user
@@ -49,7 +63,7 @@ async function register(req, res) {
         // })
 
     } catch(err) {
-        res.status(400).send(err);
+        res.status(400).json({ message: "" + err} );
     }
    
 }
