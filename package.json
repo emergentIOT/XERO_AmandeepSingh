@@ -4,7 +4,7 @@
   "description": "Products API using MONGO DB",
   "main": "index.js",
   "scripts": {
-    "start-server": "nodemon index.js",
+    "start": "nodemon index.js",
     "docker-build": "docker build -t productsapi .",
     "docker-compose": "docker-compose up",
     "test-api": "newman run 'https://www.postman.com/collections/ae29476c06b6d613f7c3' -e 'XERO.postman_globals.json' -k",
