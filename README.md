@@ -1,5 +1,9 @@
 # Nodejs and MongoDB Api
 
+NOTE:
+
+I have added Mongo DB Atlas string, so no need to run mongo instance in this branch
+
 TODO: Working on Integrating JWT AUTH, Hosting the api on Raspberry PI4 and running it with minikube.
 
 ### Docker Setup: I have used two images, which i have build & uploaded on my Docker account and i have used docker-compose.yml(included in project) to run services all together.
