@@ -1,5 +1,5 @@
 const express = require('express');
-const logger = require('morgan');
+//const logger = require('morgan');
 const config = require('./config/config');
 const bodyParser = require('body-parser');
 require('./config/mongoose');
@@ -10,7 +10,7 @@ const routes = require('./routes/index');
 const app = express();
 
 if(config.env == 'development') {
-    app.use(logger('dev'));
+  //  app.use(logger('dev'));
 }
 //parsing from API
 app.use(bodyParser.json())
